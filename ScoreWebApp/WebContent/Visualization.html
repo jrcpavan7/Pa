@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script>
+
+</script>
+<script>
+$(function () {
+	
+    // Set up the chart
+    var chart = new Highcharts.Chart({
+    	colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+    	      '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+    	chart: {
+    		 backgroundColor: {
+    	         linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+    	         stops: [
+    	            [0, '#2a2a2b'],
+    	            [1, '#3e3e40']
+    	         ]
+    	      },
+    	      style: {
+    	         fontFamily: '\'Unica One\', sans-serif'
+    	      },
+    	      plotBorderColor: '#606063',
+    		renderTo: 'container',
+            type: 'column',
+            options3d: {
+                enabled: true,
+                alpha: 15,
+                beta: 15,
+                depth: 50,
+                viewDistance: 25
+            }
+        },
+        title: {
+        	 color: '#E0E0E3',
+             textTransform: 'uppercase',
+             fontSize: '20px',
+            text: 'Chart rotation demo'
+        },
+        xAxis: {
+            gridLineColor: '#707073',
+            labels: {
+               style: {
+                  color: '#E0E0E3'
+               }
+            },
+            lineColor: '#707073',
+            minorGridLineColor: '#505053',
+            tickColor: '#707073',
+            title: {
+               style: {
+                  color: '#A0A0A3'
+
+               }
+            }
+         },
+         yAxis: {
+            gridLineColor: '#707073',
+            labels: {
+               style: {
+                  color: '#E0E0E3'
+               }
+            },
+            lineColor: '#707073',
+            minorGridLineColor: '#505053',
+            tickColor: '#707073',
+            tickWidth: 1,
+            title: {
+               style: {
+                  color: '#A0A0A3'
+               }
+            }
+         },
+         legend: {
+             itemStyle: {
+                color: '#E0E0E3'
+             },
+             itemHoverStyle: {
+                color: '#FFF'
+             },
+             itemHiddenStyle: {
+                color: '#606063'
+             }
+          },
+          credits: {
+             style: {
+                color: '#666'
+             }
+          },
+          labels: {
+             style: {
+                color: '#707073'
+             }
+          },drilldown: {
+              activeAxisLabelStyle: {
+                  color: '#F0F0F3'
+               },
+               activeDataLabelStyle: {
+                  color: '#F0F0F3'
+               }
+            },
+
+            navigation: {
+               buttonOptions: {
+                  symbolStroke: '#DDDDDD',
+                  theme: {
+                     fill: '#505053'
+                  }
+               }
+            },
+            angeSelector: {
+                buttonTheme: {
+                   fill: '#505053',
+                   stroke: '#000000',
+                   style: {
+                      color: '#CCC'
+                   },
+                   states: {
+                      hover: {
+                         fill: '#707073',
+                         stroke: '#000000',
+                         style: {
+                            color: 'white'
+                         }
+                      },
+                      select: {
+                         fill: '#000003',
+                         stroke: '#000000',
+                         style: {
+                            color: 'white'
+                         }
+                      }
+                   }
+                },
+                inputBoxBorderColor: '#505053',
+                inputStyle: {
+                   backgroundColor: '#333',
+                   color: 'silver'
+                },
+                labelStyle: {
+                   color: 'silver'
+                }
+             },
+
+             navigator: {
+                handles: {
+                   backgroundColor: '#666',
+                   borderColor: '#AAA'
+                },
+                outlineColor: '#CCC',
+                maskFill: 'rgba(255,255,255,0.1)',
+                series: {
+                   color: '#7798BF',
+                   lineColor: '#A6C7ED'
+                },
+                xAxis: {
+                    gridLineColor: '#505053'
+                 }
+              },
+              scrollbar: {
+                  barBackgroundColor: '#808083',
+                  barBorderColor: '#808083',
+                  buttonArrowColor: '#CCC',
+                  buttonBackgroundColor: '#606063',
+                  buttonBorderColor: '#606063',
+                  rifleColor: '#FFF',
+                  trackBackgroundColor: '#404043',
+                  trackBorderColor: '#404043'
+               },
+
+        subtitle: {
+            text: '3-D view of scores'
+        },
+        plotOptions: {
+            column: {
+                depth: 25
+            }
+        },
+        series: [{
+            data: [8,10,6,7,9,4,5,2]
+        }]
+    });
+
+    function showValues() {
+    	
+        $('#alpha-value').html(chart.options.chart.options3d.alpha);
+        $('#beta-value').html(chart.options.chart.options3d.beta);
+        $('#depth-value').html(chart.options.chart.options3d.depth);
+    }
+
+    // Activate the sliders
+    $('#sliders input').on('input change', function () {
+    	
+        chart.options.chart.options3d[this.id] = this.value;
+        showValues();
+        chart.redraw(false);
+    });
+
+    showValues();
+});
+</script>
+
+<style>
+body{#container, #sliders {
+    min-width: 310px; 
+    max-width: 800px;
+    margin: 0 auto;
+}
+#container {
+    height: 400px; 
+}
+}
+</style>
+</head>
+<body>
+<div id="container"></div>
+<div id="sliders">
+    <table>
+        <tr>
+        	<td>Alpha Angle</td>
+        	<td><input id="alpha" type="range" min="0" max="45" value="15"/> <span id="alpha-value" class="value"></span></td>
+        </tr>
+        <tr>
+        	<td>Beta Angle</td>
+        	<td><input id="beta" type="range" min="-45" max="45" value="15"/> <span id="beta-value" class="value"></span></td>
+        </tr>
+        <tr>
+        	<td>Depth</td>
+        	<td><input id="depth" type="range" min="20" max="100" value="50"/> <span id="depth-value" class="value"></span></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
