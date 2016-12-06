@@ -15,6 +15,7 @@ def main(args: Array[String]) {
     println(msort(list))
   }
 
+  def msort[T <% Ordered[T]](xs: List[T]): List[T] = {  
     @tailrec
     def merge(res: List[T], xs: List[T], ys: List[T]): List[T] = (xs, ys) match {
       case (_, Nil) => res.reverse ::: xs
